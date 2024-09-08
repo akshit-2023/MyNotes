@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "246566256634",
+    "project_id": "mynotes-akshit",
+    "storage_bucket": "mynotes-akshit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246566256634:android:027235ed438587844eee43",
+        "android_client_info": {
+          "package_name": "com.aflutterproject.mynotes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeX7Atc9vN6blN1RjVwaRut-wsawhHHks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
