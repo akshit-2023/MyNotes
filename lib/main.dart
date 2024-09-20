@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/firebase_options.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:mynotes/views/register_view.dart';
+import 'package:mynotes/views/verify_email_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();//Now we dont need to initialize firebsae.auth in every widget
@@ -19,6 +21,10 @@ void main() async {
       useMaterial3: false,
     ),
     home: const HomePage(),
+    routes: {
+      '/login/': (context) => const LoginView(),
+      '/register/': (context) => const RegisterView()
+    },
   ));
 }
 
@@ -27,32 +33,31 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        toolbarHeight: 50,
-      ),
-      body: FutureBuilder(
+    return FutureBuilder(
         future:Firebase.initializeApp(
                   options: DefaultFirebaseOptions.currentPlatform,
                 ) ,
-        builder: (context, snapshot) {
+        builder: (context, snapshot) {//Builder should return a widget
           switch(snapshot.connectionState){
             case ConnectionState.done:
               final user=FirebaseAuth.instance.currentUser;
-              if(user?.emailVerified??false){
-                print("You are verified");
+              if(user != null){
+                if(user.emailVerified){
+                  print("Email is verified");
+                }
+                else{
+                  return const VerifyEmailView();
+                }
+              }else{//if user is null then pop loginview so that user can enter details.
+               return const LoginView(); 
               }
-              else{
-                print("You need to verify your E-mail first");
-              }
-              return Text("Done");
+              return const Text("Done");
         default:
-        return const Text('Loading...');
+        return const CircularProgressIndicator();
               
           }
         },
-      ),
-    );
+      );
   }
 }
+
