@@ -12,7 +12,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Verify E-mail"),),
+      appBar: AppBar(title: const Text("Verify E-mail"),),
       body: Column(children: [//changed from return scaffold to return column because of Navigator error
         const Text("Please verify your E-mail address:"),
         TextButton(onPressed: () async {//try to make child the last argument in TextButton,await used so async also used

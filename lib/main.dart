@@ -6,7 +6,6 @@ import 'package:mynotes/views/login_view.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_email_view.dart';
-import 'dart:developer' as devtools show log;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();//Now we dont need to initialize firebsae.auth in every widget
@@ -24,7 +23,8 @@ void main() async {
     home: const HomePage(),
     routes: {
       '/login/': (context) => const LoginView(),
-      '/register/': (context) => const RegisterView()
+      '/register/': (context) => const RegisterView(),
+      '/notes/':(context) => const NotesView(),
     },
   ));
 }
@@ -75,6 +75,7 @@ class NotesView extends StatefulWidget {
 }
 // avoid print calls in production code, because OS keeps track of these messages and if the phone ends up in wrong hands it can be a security threat
 //Instead use logs by importing 'dart:developer'
+//Log only accepts String as argument so we use toString() in it.
 //printf is also called poor man's debugger
 
 
