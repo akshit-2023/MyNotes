@@ -1,6 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/services/auth/auth_service.dart';
 
 class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({super.key});
@@ -17,12 +19,11 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
       body: Column(children: [//changed from return scaffold to return column because of Navigator error
         const Text("E-mail verification sent, if not received click the button below to resend it."),
         TextButton(onPressed: () async {//try to make child the last argument in TextButton,await used so async also used
-          final user=FirebaseAuth.instance.currentUser;
-          await user?.sendEmailVerification();//returns Future so await is used
+          await AuthService.firebase().sendEmailVerification();
         }, 
         child: const Text("Send E-mail verification")),
         TextButton(onPressed:() async {
-          await FirebaseAuth.instance.signOut();
+          await AuthService.firebase().logOut();
           Navigator.of(context).pushNamedAndRemoveUntil(registerRoute,(route)=> false);
         }, child: const Text("Restart")),
       ],),
