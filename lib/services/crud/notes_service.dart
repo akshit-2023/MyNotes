@@ -10,12 +10,18 @@ class NotesService {
 
   List<DatabaseNote> _notes = [];
   static final NotesService _shared = NotesService._sharedInstance();
-  NotesService._sharedInstance();
+  NotesService._sharedInstance() {
+    _notesStreamController =
+        StreamController<List<DatabaseNote>>.broadcast(onListen: () {
+      //called when a new listener comes,we need to add again in case of broadcast as when a listener listens then stream does not hold the data so we are adding _notes again
+      _notesStreamController.sink.add(_notes);
+    });
+  }
 
   factory NotesService() => _shared;
 
-  final _notesStreamController =
-      StreamController<List<DatabaseNote>>.broadcast();
+  late final StreamController<List<DatabaseNote>> _notesStreamController;
+
   //broadcast helps us to listen to stream more than once
   Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
