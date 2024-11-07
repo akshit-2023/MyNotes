@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
-import 'package:mynotes/utilities/show_error_dialog.dart';
+import 'package:mynotes/utilities/dialogs/error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -67,7 +67,7 @@ class _RegisterViewState extends State<RegisterView> {
                     verifyEmailRoute); //pushNamed is used because we dont want to remove the page before the verifyemailroute as if we registered using wrong email we can go back.
               } on WeakPasswordAuthException {
                 await showErrorDialog(context, 'Weak password');
-              } on EmailAlreadyInUseAuthException { 
+              } on EmailAlreadyInUseAuthException {
                 await showErrorDialog(context, 'E-mail is already in use');
               } on InvalidEmailAuthException {
                 await showErrorDialog(context, 'Invalid E-mail');
